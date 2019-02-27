@@ -2,21 +2,10 @@
 FROM mariadb:latest
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
-#RUN useradd -m -ms /bin/bash mariadb
-#RUN chown -R mariadb /var/lib/mysql
-#RUN chgrp -R mariadb /var/lib/mysql
-#RUN chmod 775 /var/lib/mysql
-
-#ARG PUID=1000
-#ENV PUID ${PUID}
-#ARG PGID=1000
-#ENV PGID ${PGID}
-
-#RUN groupadd -g ${PGID} mariadb && \
-#  useradd -u ${PUID} -g mariadb -m mariadb && \
-#  usermod -p "*" mariadb
-
+#MS# switch to user MYSQL instead of root
 USER mysql
+#MS#
+
 WORKDIR /var/lib/mysql
 
 

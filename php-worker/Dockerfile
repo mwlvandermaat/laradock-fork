@@ -27,35 +27,36 @@ RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 && d
 #Install SOAP package:
 ARG INSTALL_SOAP=false
 RUN if [ ${INSTALL_SOAP} = true ]; then \
-    docker-php-ext-install soap \
-;fi
+  docker-php-ext-install soap \
+  ;fi
 
 #Install BCMath package:
 ARG INSTALL_BCMATH=false
 RUN if [ ${INSTALL_BCMATH} = true ]; then \
-    docker-php-ext-install bcmath \
-;fi
+  docker-php-ext-install bcmath \
+  ;fi
 
 # Install PostgreSQL drivers:
 ARG INSTALL_PGSQL=false
 RUN if [ ${INSTALL_PGSQL} = true ]; then \
-    apk --update add postgresql-dev \
-        && docker-php-ext-install pdo_pgsql \
-;fi
+  apk --update add postgresql-dev \
+  && docker-php-ext-install pdo_pgsql \
+  ;fi
 
 # Install ZipArchive:
 ARG INSTALL_ZIP_ARCHIVE=false
 RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
-    apk --update add libzip-dev && \
-    docker-php-ext-configure zip --with-libzip && \
-    # Install the zip extension
-    docker-php-ext-install zip \
-;fi
+  apk --update add libzip-dev && \
+  docker-php-ext-configure zip --with-libzip && \
+  # Install the zip extension
+  docker-php-ext-install zip \
+  ;fi
 
 RUN rm /var/cache/apk/* \
-    && mkdir -p /var/www
+  && mkdir -p /var/www
 
 
+#MS# switch to root and add a php-worker user
 USER root
 ARG PUID=1000
 ENV PUID ${PUID}
@@ -63,8 +64,8 @@ ARG PGID=1000
 ENV PGID ${PGID}
 
 RUN addgroup -g ${PGID} php-worker && \ 
- adduser -u ${PUID} -D php-worker -G php-worker
-
+  adduser -u ${PUID} -D php-worker -G php-worker
+#MS#
 
 #
 #--------------------------------------------------------------------------
@@ -77,7 +78,9 @@ RUN addgroup -g ${PGID} php-worker && \
 
 
 COPY supervisord.conf /etc/supervisord.conf
+#MS# switch to php-worker user instead of root
 USER php-worker
+#MS#
 ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 
 #
@@ -87,7 +90,7 @@ ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 #
 # If you need to modify this image, feel free to do it right here.
 #
-    # -- Your awesome modifications go here -- #
+# -- Your awesome modifications go here -- #
 
 #
 #--------------------------------------------------------------------------
@@ -104,6 +107,8 @@ RUN php -v | head -n 1 | grep -q "PHP ${PHP_VERSION}."
 #
 
 WORKDIR /etc/supervisor/conf.d/
+#MS# switch to root user to add rights to the php-worker
 USER root
 RUN chown -R php-worker /etc/supervisor
 USER php-worker
+#MS#
