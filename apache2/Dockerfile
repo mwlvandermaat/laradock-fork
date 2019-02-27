@@ -1,5 +1,4 @@
 FROM webdevops/apache:ubuntu-16.04
-
 LABEL maintainer="Eric Pfeiffer <computerfr33k@users.noreply.github.com>"
 
 ARG PHP_UPSTREAM_CONTAINER=php-fpm
@@ -18,6 +17,8 @@ EXPOSE 80 443
 WORKDIR /var/www/
 
 COPY vhost.conf /etc/apache2/sites-enabled/vhost.conf
+RUN a2dissite 000-default
+#RUN a2ensite hethandigeneefje.nl
 
 ENTRYPOINT ["/opt/docker/bin/entrypoint.sh"]
 

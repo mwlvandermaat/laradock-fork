@@ -6,7 +6,6 @@
 
 ARG PHP_VERSION=${PHP_VERSION}
 FROM php:${PHP_VERSION}-alpine
-
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
 RUN apk --update add wget \
@@ -56,6 +55,17 @@ RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
 RUN rm /var/cache/apk/* \
     && mkdir -p /var/www
 
+
+USER root
+ARG PUID=1000
+ENV PUID ${PUID}
+ARG PGID=1000
+ENV PGID ${PGID}
+
+RUN addgroup -g ${PGID} php-worker && \ 
+ adduser -u ${PUID} -D php-worker -G php-worker
+
+
 #
 #--------------------------------------------------------------------------
 # Optional Supervisord Configuration
@@ -65,8 +75,9 @@ RUN rm /var/cache/apk/* \
 # Make sure you rebuild your container with every change.
 #
 
-COPY supervisord.conf /etc/supervisord.conf
 
+COPY supervisord.conf /etc/supervisord.conf
+USER php-worker
 ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 
 #
@@ -93,3 +104,6 @@ RUN php -v | head -n 1 | grep -q "PHP ${PHP_VERSION}."
 #
 
 WORKDIR /etc/supervisor/conf.d/
+USER root
+RUN chown -R php-worker /etc/supervisor
+USER php-worker

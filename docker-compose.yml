@@ -5,6 +5,11 @@ networks:
     driver: ${NETWORKS_DRIVER}
   backend:
     driver: ${NETWORKS_DRIVER}
+  #combination of the COMPOSE_PROJECT_NAME or the source path folder and the network name
+  msuwv_backend:
+    external: true
+  mshrapi_backend:
+    external: true
 
 volumes:
   mysql:
@@ -173,8 +178,13 @@ services:
         - workspace
       networks:
         - backend
+        - msuwv_backend
+        - mshrapi_backend
       links:
         - docker-in-docker
+      external_links:
+        - ms-uwv_ms-uwv_1
+        - ms-hrapi_ms-hrapi_1
 
 ### PHP Worker ############################################
     php-worker:
@@ -195,6 +205,11 @@ services:
         - "dockerhost:${DOCKER_HOST_IP}"
       networks:
         - backend
+        - mshrapi_backend
+      external_links:
+        - ms-hrapi_ms-hrapi_1
+
+
 ### Laravel Horizon ############################################
     laravel-horizon:
       build:
@@ -260,6 +275,8 @@ services:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
         - ${APACHE_HOST_LOG_PATH}:/var/log/apache2
         - ${APACHE_SITES_PATH}:/etc/apache2/sites-available
+        - ./data/certbot/certs/:/var/certs
+        - ./certbot/letsencrypt/.well-known:/var/www/public_html/.well-known
       ports:
         - "${APACHE_HOST_HTTP_PORT}:80"
         - "${APACHE_HOST_HTTPS_PORT}:443"
@@ -351,10 +368,9 @@ services:
 
 ### MariaDB ##############################################
     mariadb:
-      build: ./mariadb
-      volumes:
-        - ${DATA_PATH_HOST}/mariadb:/var/lib/mysql
-        - ${MARIADB_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+      build:
+        context: ./mariadb  
+#make sure the port is not open in production
       ports:
         - "${MARIADB_PORT}:3306"
       environment:
@@ -362,8 +378,13 @@ services:
         - MYSQL_USER=${MARIADB_USER}
         - MYSQL_PASSWORD=${MARIADB_PASSWORD}
         - MYSQL_ROOT_PASSWORD=${MARIADB_ROOT_PASSWORD}
+      volumes:
+        - ${DATA_PATH_HOST}/mariadb:/var/lib/mysql
+        - ${MARIADB_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
       networks:
-        - backend
+       backend:
+        aliases:
+          - laradock_mariadb
 
 ### PostgreSQL ###########################################
     postgres:
@@ -599,10 +620,11 @@ services:
         context: ./certbot
       volumes:
         - ./data/certbot/certs/:/var/certs
-        - ./certbot/letsencrypt/:/var/www/letsencrypt
+        - ./certbot/letsencrypt/.well-known:/var/www/public_html/.well-known
       environment:
-        - CN="fake.domain.com"
-        - EMAIL="fake.email@gmail.com"
+      - CN1=${HOST_SERVER1}
+      - EMAIL=${HOST_MAIL}
+      - CN2=${HOST_SERVER2}
       networks:
         - frontend
 
