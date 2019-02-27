@@ -122,6 +122,7 @@ services:
       - backend
     links:
       - docker-in-docker
+    restart: always
 
   ### PHP-FPM ##############################################
   php-fpm:
@@ -184,6 +185,7 @@ services:
     external_links:
       - ms-uwv_ms-uwv_1
       - ms-hrapi_ms-hrapi_1
+    restart: always
 
   ### PHP Worker ############################################
   php-worker:
@@ -207,6 +209,7 @@ services:
       - mshrapi_backend
     external_links:
       - ms-hrapi_ms-hrapi_1
+    restart: always
 
   ### Apache Server ########################################
   apache2:
@@ -231,6 +234,7 @@ services:
     networks:
       - frontend
       - backend
+    restart: always
 
   ### MariaDB ##############################################
   mariadb:
@@ -251,6 +255,7 @@ services:
       backend:
         aliases:
           - laradock_mariadb
+    restart: always
 
   ### Beanstalkd ###########################################
   beanstalkd:
@@ -262,6 +267,7 @@ services:
       - php-fpm
     networks:
       - backend
+    restart: always
 
     ### Docker-in-Docker ################################################
   docker-in-docker:
@@ -273,7 +279,7 @@ services:
       - 2375
     networks:
       - backend
-
+    restart: always
   #Only in test enviroment
   ### Certbot #########################################
   # certbot:
@@ -300,3 +306,4 @@ services:
       - "${NETDATA_PORT}:19999"
     networks:
       - backend
+    restart: always
