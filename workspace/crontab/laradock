@@ -1,1 +1,17 @@
 * * * * * laradock /usr/bin/php /var/www/artisan schedule:run >> /dev/null 2>&1
+MAILTO=michiel.vandermaat@mijnsubsidie.com
+#45 23 * * * /usr/bin/mysqldump -S /var/run/mysqld/mysqld.sock -u ms_partprog -p'@u:2MA?n<\%YkL8bTTrCEQ6$~:Rxtf()mfkaIB{KK65kGsyi8b?' mijnsubs-2 > /var/www/backups/database-2-$(date +"\%d-\%Y").sql
+#0 9,11,15,16 * * * php /var/www/ms-partner/online/laravel/artisan mijnsubsidie:product-news-rvo
+#0 9 * * 1 php /var/www/ms-partner/online/laravel/artisan mijnsubsidie:random-products
+#0 4 * * * php /var/www/ms-partner/online/laravel/artisan mijnsubsidie:products-online
+#30 8 * * 1,2,3,4,5 php /var/www/ms-partner/online/laravel/artisan mijnsubsidie:email-notification
+#15 0 * * * php /var/www/ms-partner/online/laravel/artisan mijnsubsidie:update-hr #Update the hr-api-credentials everyday at 00:15
+#30 8 * * * php /var/www/ms-partner/online/laravel/artisan mijnsubsidie:enqueue-mail #Enqueue mail daily at 30 past 8 in morning
+#*/5 8-20 * * * php /var/www/ms-partner/online/laravel/artisan mijnsubsidie:send-batch #Send a batch of max. 5 messages every five minutes
+#30 7 * * * php /var/www/ms-partner/online/laravel/artisan mijnsubsidie:check-statuses #Checks specific statuses if they exist for longer than 2 weeks, if they do we remove it and change it to it\'s reminder sta$
+#05 0 * * * php /var/www/ms-partner/online/laravel/artisan mijnsubsidie:check-dnsdomains #Checks if each dns domain is still verifyd.
+#0 6 * * * php /var/www/ms-partner/online/laravel/artisan mijnsubsidie:clear-temp-employees #Checks the temp_new_employees table for any employee that has been in the table for more than 3 months. Runs at 6:00 A$
+#0 7 * * * php /var/www/ms-partner/online/laravel/artisan mijnsubsidie:write-employees-to-uwv-table #Write all employees to the UWV employees table if they are not in there already.
+#*/15 8-19 * * 1-5 php /var/www/ms-partner/online/laravel/artisan mijnsubsidie:write-uwv-table-to-employees #Write all uwv table employees that has been checked and the contract start date is this year to employ$
+#05 8 * * 1-5 php /var/www/ms-partner/online/laravel/artisan mijnsubsidie:mega-batch-check #Checks ALL the employees in hr_employee_uwv_status if they are not already checked.
+#00 04 1 * * php /var/www/ms-partner/online/laravel/artisan mijnsubsidie:save-invoice-history #Saves all the data necessary for the invoice of last month. crontab
