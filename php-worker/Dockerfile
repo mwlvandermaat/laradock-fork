@@ -56,16 +56,16 @@ RUN rm /var/cache/apk/* \
   && mkdir -p /var/www
 
 
-#MS# switch to root and add a php-worker user
-USER root
-ARG PUID=1000
-ENV PUID ${PUID}
-ARG PGID=1000
-ENV PGID ${PGID}
+# #MS# switch to root and add a php-worker user
+# USER root
+# ARG PUID=1000
+# ENV PUID ${PUID}
+# ARG PGID=1000
+# ENV PGID ${PGID}
 
-RUN addgroup -g ${PGID} php-worker && \ 
-  adduser -u ${PUID} -D php-worker -G php-worker
-#MS#
+# RUN addgroup -g ${PGID} php-worker && \ 
+#   adduser -u ${PUID} -D php-worker -G php-worker
+# #MS#
 
 #
 #--------------------------------------------------------------------------
