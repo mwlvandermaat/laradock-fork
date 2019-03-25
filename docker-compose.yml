@@ -123,6 +123,8 @@ services:
       - mshrapi_backend
     links:
       - docker-in-docker
+    external_links:
+      - ms-hrapi_ms-hrapi_1
     restart: always
 
   ### PHP-FPM ##############################################
@@ -269,6 +271,8 @@ services:
     networks:
       - backend
       - mshrapi_backend
+    external_links:
+      - ms-hrapi_ms-hrapi_1
     restart: always
 
     ### Docker-in-Docker ################################################
