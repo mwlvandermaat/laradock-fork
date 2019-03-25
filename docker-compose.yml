@@ -120,6 +120,7 @@ services:
     networks:
       - frontend
       - backend
+      - mshrapi_backend
     links:
       - docker-in-docker
     restart: always
@@ -267,6 +268,7 @@ services:
       - php-fpm
     networks:
       - backend
+      - mshrapi_backend
     restart: always
 
     ### Docker-in-Docker ################################################
@@ -307,3 +309,13 @@ services:
     networks:
       - backend
     restart: always
+
+    ### Beanstalkd Console ###################################
+  beanstalkd-console:
+    build: ./beanstalkd-console
+    ports:
+      - "${BEANSTALKD_CONSOLE_HOST_PORT}:2080"
+    depends_on:
+      - beanstalkd
+    networks:
+      - backend
