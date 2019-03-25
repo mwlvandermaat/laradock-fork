@@ -67,6 +67,18 @@ RUN rm /var/cache/apk/* \
 #   adduser -u ${PUID} -D php-worker -G php-worker
 # #MS#
 
+# Add a non-root user:
+ARG PUID=1000
+ENV PUID ${PUID}
+ARG PGID=1000
+ENV PGID ${PGID}
+
+RUN addgroup -g ${PGID} laradock && \
+    adduser -D -G laradock -u ${PUID} laradock
+
+
+
+
 #
 #--------------------------------------------------------------------------
 # Optional Supervisord Configuration
@@ -78,9 +90,9 @@ RUN rm /var/cache/apk/* \
 
 
 COPY supervisord.conf /etc/supervisord.conf
-#MS# switch to php-worker user instead of root
-USER php-worker
-#MS#
+# #MS# switch to php-worker user instead of root
+# USER php-worker
+# #MS#
 ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 
 #
@@ -107,8 +119,8 @@ RUN php -v | head -n 1 | grep -q "PHP ${PHP_VERSION}."
 #
 
 WORKDIR /etc/supervisor/conf.d/
-#MS# switch to root user to add rights to the php-worker
-USER root
-RUN chown -R php-worker /etc/supervisor
-USER php-worker
-#MS#
+# #MS# switch to root user to add rights to the php-worker
+# USER root
+# RUN chown -R php-worker /etc/supervisor
+# USER php-worker
+# #MS#
