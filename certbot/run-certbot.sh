@@ -1,10 +1,11 @@
 #c!/bin/bash
 
 #LIVE1TESTING subsidieprofiel
-letsencrypt certonly --webroot -w /var/www/public_html -d "$CN1" --agree-tos --email "$EMAIL" --force-renewal
-
+#You could run the command to create a certificate with “--duplicate” and “--staging” added. This would create a fake staging certificate, but save it like a real certificate. (It would be renewed two months from now and everything.)
+letsencrypt certonly --webroot -w /var/www/public_html -d "$CN1" --agree-tos --email "$EMAIL" --force-renewal --dry-run
+ 
 #LIVE2 mijnsubsidie
-# letsencrypt certonly --webroot -w /var/www/public_html -d "$CN2" --agree-tos --email "$EMAIL" --force-renewal --expand
+# letsencrypt certonly --webroot -w /var/www/public_html -d "$CN2" --agree-tos --email "$EMAIL" --force-renewal 
 
 
 
