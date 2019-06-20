@@ -10,7 +10,7 @@ WORKDIR /var/lib/mysql
 
 
 COPY my.cnf /etc/mysql/conf.d/my.cnf
-COPY keys.txt /etc/mysqld/conf.d/keys.txt
+# COPY keys.txt /etc/mysqld/conf.d/keys.txt
 
 CMD ["mysqld"]
 
