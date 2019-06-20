@@ -151,19 +151,19 @@ services:
       - backend
     # restart: always
   #Only in test enviroment
-  ### Certbot #########################################
-  # certbot:
-  #   build:
-  #     context: ./certbot
-  #   volumes:
-  #     - ./data/certbot/certs/:/var/certs
-  #     - ./certbot/letsencrypt/.well-known:/var/www/public_html/.well-known
-  #   environment:
-  #   - CN1=${HOST_SERVER1}
-  #   - EMAIL=${HOST_MAIL}
-  #   - CN2=${HOST_SERVER2}
-  #   networks:
-  #     - frontend
+  ## Certbot #########################################
+  certbot:
+    build:
+      context: ./certbot
+    volumes:
+      - ./data/certbot/certs/:/var/certs
+      - ./certbot/letsencrypt/.well-known:/var/www/public_html/.well-known
+    environment:
+      - CN1=${HOST_SERVER1}
+      - EMAIL=${HOST_MAIL}
+      # - CN2=${HOST_SERVER2}
+    networks:
+      - frontend
 
   ### NetData ################################################
   netdata:
