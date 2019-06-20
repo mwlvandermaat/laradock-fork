@@ -87,7 +87,8 @@ services:
 
   ### Apache Server ########################################
   apache2:
-    image: registry.gitlab.com/mijnsubsidie/ms-partner/apache2
+    # image: registry.gitlab.com/mijnsubsidie/ms-partner/apache2
+    build: ./apache2
     volumes:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
       - ${APACHE_HOST_LOG_PATH}:/var/log/apache2
@@ -152,18 +153,18 @@ services:
     # restart: always
   #Only in test enviroment
   ## Certbot #########################################
-  certbot:
-    build:
-      context: ./certbot
-    volumes:
-      - ./data/certbot/certs/:/var/certs
-      - ./certbot/letsencrypt/.well-known:/var/www/public_html/.well-known
-    environment:
-      - CN1=${HOST_SERVER1}
-      - EMAIL=${HOST_MAIL}
-      # - CN2=${HOST_SERVER2}
-    networks:
-      - frontend
+  # certbot:
+  #   build:
+  #     context: ./certbot
+  #   volumes:
+  #     - ./data/certbot/certs/:/var/certs
+  #     - ./certbot/letsencrypt/.well-known:/var/www/public_html/.well-known
+  #   environment:
+  #     - CN1=${HOST_SERVER1}
+  #     - EMAIL=${HOST_MAIL}
+  #     # - CN2=${HOST_SERVER2}
+  #   networks:
+  #     - frontend
 
   ### NetData ################################################
   netdata:
