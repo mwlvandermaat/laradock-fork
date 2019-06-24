@@ -256,7 +256,7 @@ services:
         - no_proxy
     #make sure the port is not open in production
     # ports:
-    # - "${MARIADB_PORT}:3306"
+    - "${MARIADB_PORT}:3306"
     environment:
       - MYSQL_DATABASE=${MARIADB_DATABASE}
       - MYSQL_USER=${MARIADB_USER}
