@@ -20,7 +20,6 @@ volumes:
 services:
   ### Workspace Utilities ##################################
   workspace:
-    image: registry.gitlab.com/mijnsubsidie/ms-partner/workspace
     build:
       context: ./workspace
       args:
@@ -114,7 +113,6 @@ services:
 
   ### PHP-FPM ##############################################
   php-fpm:
-    image: registry.gitlab.com/mijnsubsidie/ms-partner/php-fpm
     build:
       context: ./php-fpm
       args:
@@ -190,7 +188,6 @@ services:
 
   ### PHP Worker ############################################
   php-worker:
-    image: registry.gitlab.com/mijnsubsidie/ms-partner/php-worker
     build:
       context: ./php-worker
       args:
@@ -226,7 +223,6 @@ services:
 
   ### Apache Server ########################################
   apache2:
-    image: registry.gitlab.com/mijnsubsidie/ms-partner/apache2
     build:
       context: ./apache2
       args:
@@ -252,7 +248,6 @@ services:
 
   ### MariaDB ##############################################
   mariadb:
-    image: registry.gitlab.com/mijnsubsidie/ms-partner/mariadb
     build:
       context: ./mariadb
       args:
@@ -278,7 +273,6 @@ services:
 
   ### Beanstalkd ###########################################
   beanstalkd:
-    image: registry.gitlab.com/mijnsubsidie/ms-partner/beanstalkd
     build: ./beanstalkd
     ports:
       - "${BEANSTALKD_HOST_PORT}:11300"
@@ -331,7 +325,6 @@ services:
   #   # restart: always
   ### Beanstalkd Console ###################################
   beanstalkd-console:
-    image: registry.gitlab.com/mijnsubsidie/ms-partner/beanstalkd-console
     build: ./beanstalkd-console
     ports:
       - "${BEANSTALKD_CONSOLE_HOST_PORT}:2080"
@@ -342,7 +335,6 @@ services:
 
   ### laravel-echo-server ####################################
   laravel-echo-server:
-    image: registry.gitlab.com/mijnsubsidie/ms-partner/laravel-echo-server
     build:
       context: ./laravel-echo-server
     volumes:
