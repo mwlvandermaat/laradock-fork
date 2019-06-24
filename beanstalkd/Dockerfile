@@ -1,4 +1,5 @@
-FROM phusion/baseimage:latest
+FROM alpine
+VOLUME /var/lib/beanstalkd/data
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
 #MS# add user
@@ -7,14 +8,9 @@ ENV PUID ${PUID}
 ARG PGID=1000
 ENV PGID ${PGID}
 
-RUN groupadd -g ${PGID} beanstalkd && \
-  useradd -u ${PUID} -g beanstalkd -m beanstalkd && \
-  usermod -p "*" beanstalkd
+RUN addgroup -g ${PGID} beanstalkd && \
+  adduser -D -G beanstalkd -u ${PUID} beanstalkd
 #MS#
-
-VOLUME /var/lib/beanstalkd/data
-FROM alpine
-LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
 RUN apk add --no-cache beanstalkd
 
