@@ -21,9 +21,9 @@
     "redis": false
   },
   "apiOriginAllow": {
-    "allowCors": false,
-    "allowOrigin": "",
-    "allowMethods": "",
-    "allowHeaders": ""
+    "allowCors": true,
+    "allowOrigin": "5.157.85.8",
+    "allowMethods": "GET, POST",
+    "allowHeaders": "Origin, Content-Type, X-Auth-Token, X-Requested-With, Accept, Authorization, X-CSRF-TOKEN, X-Socket-Id"
   }
 }
