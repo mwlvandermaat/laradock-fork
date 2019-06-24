@@ -12,19 +12,15 @@ RUN groupadd -g ${PGID} beanstalkd && \
   usermod -p "*" beanstalkd
 #MS#
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV PATH /usr/local/rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+VOLUME /var/lib/beanstalkd/data
+FROM alpine
+LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
-RUN apt-get update
-RUN apt-get install -y beanstalkd
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apk add --no-cache beanstalkd
 
 #MS# Switch to user beanstalkd instead of root
 USER beanstalkd
 #MS#
 
-VOLUME /var/lib/beanstalkd/data
-
 EXPOSE 11300
-
-CMD ["/usr/bin/beanstalkd"]
+ENTRYPOINT ["/usr/bin/beanstalkd"]
