@@ -10,7 +10,7 @@
   "devMode": false,
   "host": "app.subsidieprofiel.nl",
   "port": "6001",
-  "protocol": "http",
+  "protocol": "https",
   "socketio": {},
   "sslCertPath": "/var/certs/live/app.subsidieprofiel.nl/cert1.pem",
   "sslKeyPath": "/var/certs/live/app.subsidieprofiel.nl/privkey1.pem",
@@ -21,9 +21,9 @@
     "redis": false
   },
   "apiOriginAllow": {
-    "allowCors": true,
-    "allowOrigin": "5.157.85.8",
-    "allowMethods": "GET, POST",
-    "allowHeaders": "Origin, Content-Type, X-Auth-Token, X-Requested-With, Accept, Authorization, X-CSRF-TOKEN, X-Socket-Id"
+    "allowCors": false,
+    "allowOrigin": "",
+    "allowMethods": "",
+    "allowHeaders": ""
   }
 }
