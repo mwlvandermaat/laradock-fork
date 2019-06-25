@@ -1,13 +1,10 @@
 {
   "authHost": "localhost",
   "authEndpoint": "/broadcasting/auth",
-  "clients": [],
-  "database": "redis",
+  "database": "sqlite",
   "databaseConfig": {
-    "redis": {
-      "port": "6379",
-      "host": "redis"
-    }
+    "redis": {},
+    "sqlite": {}
   },
   "devMode": true,
   "host": null,
