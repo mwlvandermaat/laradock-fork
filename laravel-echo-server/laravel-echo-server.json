@@ -1,25 +1,20 @@
 {
   "authHost": "http://localhost",
   "authEndpoint": "/broadcasting/auth",
-  "clients": [
-    {
-      "appId": "113b2fcc43156c31",
-      "key": "1e232f5a2cc29a1fc79968b63172d351"
-    }
-  ],
+  "clients": [],
   "database": "sqlite",
   "databaseConfig": {
     "redis": {},
     "sqlite": {}
   },
-  "devMode": true,
+  "devMode": false,
   "host": null,
   "port": "6001",
-  "protocol": "http",
+  "protocol": "https",
   "socketio": {},
-  "sslCertPath": "",
-  "sslKeyPath": "",
-  "sslCertChainPath": "",
+  "sslCertPath": "/var/certs/live/app.subsidieprofiel.nl/cert1.pem",
+  "sslKeyPath": "/var/certs/live/app.subsidieprofiel.nl/privkey1.pem",
+  "sslCertChainPath": "/var/certs/live/app.subsidieprofiel.nl/fullchain1.pem",
   "sslPassphrase": "",
   "subscribers": {
     "http": true,
