@@ -18,7 +18,8 @@ WORKDIR /var/www/
 
 COPY vhost.conf /etc/apache2/sites-enabled/vhost.conf
 RUN a2dissite 000-default
-#RUN a2ensite hethandigeneefje.nl
+RUN a2enmod proxy_http
+RUN a2enmod proxy_wstunnel
 
 ENTRYPOINT ["/opt/docker/bin/entrypoint.sh"]
 
