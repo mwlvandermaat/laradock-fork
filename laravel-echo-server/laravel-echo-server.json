@@ -1,5 +1,5 @@
 {
-  "authHost": "http://localhost",
+  "authHost": "https://localhost",
   "authEndpoint": "/broadcasting/auth",
   "clients": [],
   "database": "sqlite",
@@ -8,7 +8,7 @@
     "sqlite": {}
   },
   "devMode": false,
-  "host": "https://localhost",
+  "host": null,
   "port": "6001",
   "protocol": "https",
   "socketio": {},
