@@ -12,8 +12,8 @@
     "redis": {},
     "sqlite": {}
   },
-  "devMode": true,
-  "host": null,
+  "devMode": false,
+  "host": "",
   "port": "6001",
   "protocol": "https",
   "socketio": {},
@@ -22,7 +22,7 @@
   "sslCertChainPath": "/var/certs/live/app.subsidieprofiel.nl/fullchain1.pem",
   "sslPassphrase": "",
   "subscribers": {
-    "https": true,
+    "http": true,
     "redis": false
   },
   "apiOriginAllow": {
