@@ -1,5 +1,5 @@
 {
-  "authHost": "localhost",
+  "authHost": "http://localhost",
   "authEndpoint": "/broadcasting/auth",
   "clients": [
     {
@@ -13,9 +13,9 @@
     "sqlite": {}
   },
   "devMode": true,
-  "host": null,
+  "host": "app.subsidieprofiel.nl",
   "port": "6001",
-  "protocol": "https",
+  "protocol": "http",
   "socketio": {},
   "sslCertPath": "/var/certs/live/app.subsidieprofiel.nl/cert1.pem",
   "sslKeyPath": "/var/certs/live/app.subsidieprofiel.nl/privkey1.pem",
