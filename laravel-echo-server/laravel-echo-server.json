@@ -8,7 +8,7 @@
     "sqlite": {}
   },
   "devMode": true,
-  "host": "0.0.0.0",
+  "host": "5.157.85.8",
   "port": "6001",
   "protocol": "https",
   "socketio": {},
