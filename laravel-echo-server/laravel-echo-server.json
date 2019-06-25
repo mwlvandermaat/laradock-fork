@@ -2,10 +2,6 @@
   "authHost": "localhost",
   "authEndpoint": "/broadcasting/auth",
   "database": "sqlite",
-  "databaseConfig": {
-    "redis": {},
-    "sqlite": {}
-  },
   "devMode": true,
   "host": null,
   "port": "6001",
