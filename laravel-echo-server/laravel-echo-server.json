@@ -1,5 +1,5 @@
 {
-  "authHost": "http://localhost",
+  "authHost": "localhost",
   "authEndpoint": "/broadcasting/auth",
   "clients": [
     {
