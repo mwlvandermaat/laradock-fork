@@ -8,7 +8,7 @@
     "sqlite": {}
   },
   "devMode": false,
-  "host": "",
+  "host": "app.subsidieprofiel.nl",
   "port": "6001",
   "protocol": "https",
   "socketio": {},
