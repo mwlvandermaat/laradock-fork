@@ -13,7 +13,7 @@
     "sqlite": {}
   },
   "devMode": true,
-  "host": "null",
+  "host": null,
   "port": "6001",
   "protocol": "https",
   "socketio": {},
