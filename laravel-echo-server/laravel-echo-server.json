@@ -14,7 +14,7 @@
   "socketio": {},
   "sslCertPath": "/var/certs/live/app.subsidieprofiel.nl/cert1.pem",
   "sslKeyPath": "/var/certs/live/app.subsidieprofiel.nl/privkey1.pem",
-  "sslCertChainPath": "/var/certs/live/app.subsidieprofiel.nl/fullchain1.pem",,
+  "sslCertChainPath": "/var/certs/live/app.subsidieprofiel.nl/fullchain1.pem",
   "sslPassphrase": "",
   "subscribers": {
     "http": true,
