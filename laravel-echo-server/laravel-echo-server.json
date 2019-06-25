@@ -1,29 +1,19 @@
 {
-  "authHost": "http://localhost",
+  "authHost": "localhost",
   "authEndpoint": "/broadcasting/auth",
   "clients": [],
-  "database": "sqlite",
+  "database": "redis",
   "databaseConfig": {
-    "redis": {},
-    "sqlite": {}
+    "redis": {
+      "port": "6379",
+      "host": "redis"
+    }
   },
   "devMode": true,
-  "host": "0.0.0.0",
-  "port": "6002",
-  "protocol": "https",
+  "host": null,
+  "port": "6001",
+  "protocol": "http",
   "socketio": {},
-  "sslCertPath": "/var/certs/live/app.subsidieprofiel.nl/cert1.pem",
-  "sslKeyPath": "/var/certs/live/app.subsidieprofiel.nl/privkey1.pem",
-  "sslCertChainPath": "/var/certs/live/app.subsidieprofiel.nl/fullchain1.pem",
-  "sslPassphrase": "",
-  "subscribers": {
-    "http": true,
-    "redis": false
-  },
-  "apiOriginAllow": {
-    "allowCors": false,
-    "allowOrigin": "",
-    "allowMethods": "",
-    "allowHeaders": ""
-  }
+  "sslCertPath": "",
+  "sslKeyPath": ""
 }
