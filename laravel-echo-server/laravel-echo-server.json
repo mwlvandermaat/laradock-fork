@@ -9,7 +9,7 @@
   },
   "devMode": false,
   "host": null,
-  "port": "6001",
+  "port": "6002",
   "protocol": "https",
   "socketio": {},
   "sslCertPath": "/var/certs/live/app.subsidieprofiel.nl/cert1.pem",
