@@ -741,6 +741,7 @@ COPY ./laravel.ini /usr/local/etc/php/conf.d
 COPY ./xlaravel.pool.conf /usr/local/etc/php-fpm.d/
 
 USER root+
+RUN chown -R www-data:www-data /var/www/ms-partner/online/protected_assets
 
 # Clean up
 RUN apt-get clean && \
@@ -756,7 +757,6 @@ RUN if [ ${INSTALL_FAKETIME} = true ]; then \
 ;fi
 
 WORKDIR /var/www
-RUN chown -R www-data:www-data /var/www/ms-partner/online/protected_assets
 CMD ["php-fpm"]
 
 EXPOSE 9000
