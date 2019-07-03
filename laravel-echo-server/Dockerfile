@@ -14,7 +14,6 @@ RUN apk add --update \
     build-base
 
 RUN npm install
-
 # Bundle app source
 COPY laravel-echo-server.json /usr/src/app/laravel-echo-server.json
 
