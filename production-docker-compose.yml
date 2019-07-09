@@ -279,7 +279,7 @@ services:
       - "${BEANSTALKD_HOST_PORT}:11300"
     privileged: true
     volumes:
-      - ./beanstalkd/backup:/var/lib/beanstalkd/data/backup
+      - ./beanstalkd/data:/var/lib/beanstalkd/data
     depends_on:
       - php-fpm
     networks:
