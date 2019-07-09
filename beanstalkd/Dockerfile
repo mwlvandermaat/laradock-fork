@@ -23,4 +23,5 @@ USER beanstalkd
 #MS#
 
 EXPOSE 11300
-CMD ["/usr/bin/beanstalkd", "-b", "/var/lib/beanstalkd/data/backup"]
+# CMD ["/usr/bin/beanstalkd", "-b", "/var/lib/beanstalkd/data/backup"]
+CMD ["/usr/bin/beanstalkd"]
