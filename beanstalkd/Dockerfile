@@ -1,5 +1,4 @@
 FROM alpine
-VOLUME /var/lib/beanstalkd/data
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
 #MS# add user
@@ -10,6 +9,11 @@ ENV PGID ${PGID}
 
 RUN addgroup -g ${PGID} beanstalkd && \
   adduser -D -G beanstalkd -u ${PUID} beanstalkd
+
+RUN mkdir -p /var/lib/beanstalkd/data/backup
+RUN chown 1000:1000 /var/lib/beanstalkd/data/backup
+RUN chmod 775 /var/lib/beanstalkd/data/backup
+RUN chmod g+s /var/lib/beanstalkd/data/backup
 #MS#
 
 RUN apk add --no-cache beanstalkd
@@ -19,4 +23,4 @@ USER beanstalkd
 #MS#
 
 EXPOSE 11300
-ENTRYPOINT ["/usr/bin/beanstalkd"]
+CMD ["/usr/bin/beanstalkd", "-b", "/var/lib/beanstalkd/data/backup"]
