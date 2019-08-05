@@ -339,6 +339,7 @@ services:
       - beanstalkd
     networks:
       - backend
+    restart: always
 
   ### laravel-echo-server ####################################
   laravel-echo-server:
@@ -352,3 +353,4 @@ services:
     networks:
       - frontend
       - backend
+    restart: always
