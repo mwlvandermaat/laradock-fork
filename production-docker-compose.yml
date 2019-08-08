@@ -354,3 +354,16 @@ services:
       - frontend
       - backend
     restart: always
+
+  ### Portainer ################################################
+  prtainer:
+    build:
+      context: ./portainer
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    extra_hosts:
+      - "dockerhost:${DOCKER_HOST_IP}"
+    ports:
+      - 9010:9000
+    networks:
+      - backend
