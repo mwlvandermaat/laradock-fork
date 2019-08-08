@@ -356,7 +356,7 @@ services:
     restart: always
 
   ### Portainer ################################################
-  prtainer:
+  portainer:
     build:
       context: ./portainer
     volumes:
