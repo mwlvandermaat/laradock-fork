@@ -255,7 +255,7 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
-    #make sure the port is not open in production
+    #make sure this is commentend in production
     # ports:
     #   - "${MARIADB_PORT}:3306"
     environment:
