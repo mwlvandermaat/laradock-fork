@@ -326,20 +326,6 @@ services:
   #   networks:
   #     - backend
   #   # restart: always
-  ### Beanstalkd Console ###################################
-  beanstalkd-console:
-    build: ./beanstalkd-console
-    ports:
-      - "${BEANSTALKD_CONSOLE_HOST_PORT}:2080"
-    environment:
-      - BEANSTALKD_CONSOLE_AUTH=${BEANSTALKD_CONSOLE_AUTH}
-      - BEANSTALKD_CONSOLE_AUTH_USERNAME=${BEANSTALKD_CONSOLE_AUTH_USERNAME}
-      - BEANSTALKD_CONSOLE_AUTH_PASSWORD=${BEANSTALKD_CONSOLE_AUTH_PASSWORD}
-    depends_on:
-      - beanstalkd
-    networks:
-      - backend
-    restart: always
 
   ### laravel-echo-server ####################################
   laravel-echo-server:
@@ -377,3 +363,4 @@ services:
       - "${REDIS_PORT}:6379"
     networks:
       - backend
+    restart: always
