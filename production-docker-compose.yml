@@ -332,8 +332,8 @@ services:
       - ${LARAVEL_ECHO_SERVER_PATH}:/usr/src/app/laravel-echo-server.json:ro
       - ./data/certbot/certs/:/var/certs
       - /etc/localtime:/etc/localtime:ro
-    # ports:
-    #   - "${LARAVEL_ECHO_SERVER_PORT}:6001"
+    ports:
+      - "${LARAVEL_ECHO_SERVER_PORT}:6001"
     networks:
       - frontend
       - backend
