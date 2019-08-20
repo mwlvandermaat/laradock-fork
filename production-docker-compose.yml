@@ -102,8 +102,8 @@ services:
       # - ${BACKUP_PATH}:/bin/backup
     extra_hosts:
       - "dockerhost:${DOCKER_HOST_IP}"
-    # ports:
-    #   - "${WORKSPACE_SSH_PORT}:22"
+    ports:
+      - "${WORKSPACE_SSH_PORT}:22"
     tty: true
     environment:
       - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
@@ -348,8 +348,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
     extra_hosts:
       - "dockerhost:${DOCKER_HOST_IP}"
-    # ports:
-    #   - 9010:9000
+    ports:
+      - 9010:9000
     networks:
       - backend
 
@@ -360,8 +360,8 @@ services:
     volumes:
       - ${DATA_PATH_HOST}/redis:/data
       - /etc/localtime:/etc/localtime:ro
-    # ports:
-    #   - "${REDIS_PORT}:6379"
+    ports:
+      - "${REDIS_PORT}:6379"
     networks:
       - backend
     restart: always
