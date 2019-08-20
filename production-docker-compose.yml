@@ -1,6 +1,6 @@
 version: "3"
 
-### Default TIMEZONE setup ##################################
+### Default TIMEZONE Setup ##################################
 ## Make sure that the system time is setup correctly
 ## Add to volume: - /etc/localtime:/etc/localtime:ro
 
@@ -9,7 +9,7 @@ networks:
     driver: ${NETWORKS_DRIVER}
   backend:
     driver: ${NETWORKS_DRIVER}
-  #combination of the COMPOSE_PROJECT_NAME or the source path folder and the network name
+  ## Combination of the COMPOSE_PROJECT_NAME or the source path folder and the network name
   msuwv_backend:
     external: true
   mshrapi_backend:
@@ -17,6 +17,8 @@ networks:
 
 volumes:
   mariadb:
+    driver: ${VOLUMES_DRIVER}
+  redis:
     driver: ${VOLUMES_DRIVER}
   mariadb_data:
     external: true
