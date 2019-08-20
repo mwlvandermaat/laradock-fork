@@ -354,6 +354,7 @@ services:
   ### Redis ################################################
   redis:
     build: ./redis
+    command: redis-server --requirepass ${REDIS_PASSWORD}
     volumes:
       - ${DATA_PATH_HOST}/redis:/data
       - /etc/localtime:/etc/localtime:ro
