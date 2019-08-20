@@ -102,8 +102,8 @@ services:
       # - ${BACKUP_PATH}:/bin/backup
     extra_hosts:
       - "dockerhost:${DOCKER_HOST_IP}"
-    ports:
-      - "${WORKSPACE_SSH_PORT}:22"
+    # ports:
+    #   - "${WORKSPACE_SSH_PORT}:22"
     tty: true
     environment:
       - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
@@ -332,8 +332,8 @@ services:
       - ${LARAVEL_ECHO_SERVER_PATH}:/usr/src/app/laravel-echo-server.json:ro
       - ./data/certbot/certs/:/var/certs
       - /etc/localtime:/etc/localtime:ro
-    ports:
-      - "${LARAVEL_ECHO_SERVER_PORT}:6001"
+    # ports:
+    #   - "${LARAVEL_ECHO_SERVER_PORT}:6001"
     networks:
       - frontend
       - backend
@@ -360,8 +360,8 @@ services:
     volumes:
       - ${DATA_PATH_HOST}/redis:/data
       - /etc/localtime:/etc/localtime:ro
-    ports:
-      - "${REDIS_PORT}:6379"
+    # ports:
+    #   - "${REDIS_PORT}:6379"
     networks:
       - backend
     restart: always
