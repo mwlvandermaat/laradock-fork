@@ -102,8 +102,6 @@ services:
       # - ${BACKUP_PATH}:/bin/backup
     extra_hosts:
       - "dockerhost:${DOCKER_HOST_IP}"
-    ports:
-      - "${WORKSPACE_SSH_PORT}:22"
     tty: true
     environment:
       - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
@@ -257,6 +255,7 @@ services:
     restart: always
 
   ### MariaDB ##############################################
+  ### Ports should be closed because request comes from backend ####################################
   mariadb:
     build:
       context: ./mariadb
@@ -264,7 +263,7 @@ services:
         - http_proxy
         - https_proxy
         - no_proxy
-    #make sure this is commentend in production
+    ### Make sure ports is commentend or deleted in production
     ports:
       - "${MARIADB_PORT}:3306"
     environment:
@@ -282,7 +281,7 @@ services:
           - laradock_mariadb
     restart: always
 
-    ### Docker-in-Docker ################################################
+  ### Docker-in-Docker ################################################
   docker-in-docker:
     image: docker:dind
     privileged: true
@@ -290,41 +289,13 @@ services:
       - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
       - /etc/localtime:/etc/localtime:ro
     expose:
-      - 2375
+      - "2375"
     networks:
       - backend
     restart: always
-  #Only in test enviroment
-  # Certbot #########################################
-  # certbot:
-  #   build:
-  #     context: ./certbot
-  #   volumes:
-  #     - ./data/certbot/certs/:/var/certs
-  #     - ./certbot/letsencrypt/.well-known:/var/www/public_html/.well-known
-  #     - /etc/localtime:/etc/localtime:ro
-  #   environment:
-  #     - CN1=${HOST_SERVER1}
-  #     - EMAIL=${HOST_MAIL}
-  #     # - CN2=${HOST_SERVER2}
-  #   networks:
-  #     - frontend
 
-  ### NetData ################################################
-  # netdata:
-  #   image: titpetric/netdata:latest
-  #   cap_add:
-  #     - SYS_PTRACE
-  #   volumes:
-  #     - /:/host:ro
-  #     - /etc/localtime:/etc/localtime:ro
-  #   ports:
-  #     - "${NETDATA_PORT}:19999"
-  #   networks:
-  #     - backend
-  #   # restart: always
-
-  ### laravel-echo-server ####################################
+  ### Laravel-echo-server ####################################
+  ### Ports should be open because request comes from frontend ####################################
   laravel-echo-server:
     build:
       context: ./laravel-echo-server
@@ -339,29 +310,57 @@ services:
       - backend
     restart: always
 
-  ### Portainer ################################################
-  portainer:
-    build:
-      context: ./portainer
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /etc/localtime:/etc/localtime:ro
-    extra_hosts:
-      - "dockerhost:${DOCKER_HOST_IP}"
-    ports:
-      - 9010:9000
-    networks:
-      - backend
-
   ### Redis ################################################
+  ### Ports should be closed because request comes from backend ####################################
   redis:
     build: ./redis
     command: redis-server --requirepass ${REDIS_PASSWORD}
     volumes:
       - ${DATA_PATH_HOST}/redis:/data
       - /etc/localtime:/etc/localtime:ro
-    ports:
-      - "${REDIS_PORT}:6379"
+    expose:
+      - "${REDIS_PORT}"
     networks:
       - backend
     restart: always
+  ### Only in development or local enviroment ####################################
+  ### Certbot #########################################
+  # certbot:
+  #   build:
+  #     context: ./certbot
+  #   volumes:
+  #     - ./data/certbot/certs/:/var/certs
+  #     - ./certbot/letsencrypt/.well-known:/var/www/public_html/.well-known
+  #     - /etc/localtime:/etc/localtime:ro
+  #   environment:
+  #     - CN1=${HOST_SERVER1}
+  #     - EMAIL=${HOST_MAIL}
+  #     # - CN2=${HOST_SERVER2}
+  #   networks:
+  #     - frontend
+  ### Portainer ################################################
+  # portainer:
+  #   build:
+  #     context: ./portainer
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /etc/localtime:/etc/localtime:ro
+  #   extra_hosts:
+  #     - "dockerhost:${DOCKER_HOST_IP}"
+  #   ports:
+  #     - 9010:9000
+  #   networks:
+  #     - backend
+  ### NetData ################################################
+  # netdata:
+  #   image: titpetric/netdata:latest
+  #   cap_add:
+  #     - SYS_PTRACE
+  #   volumes:
+  #     - /:/host:ro
+  #     - /etc/localtime:/etc/localtime:ro
+  #   ports:
+  #     - "${NETDATA_PORT}:19999"
+  #   networks:
+  #     - backend
+  #   # restart: always
