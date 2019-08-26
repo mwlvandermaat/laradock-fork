@@ -264,8 +264,8 @@ services:
         - https_proxy
         - no_proxy
     ### Make sure ports is commentend or deleted in production
-    # ports:
-    #   - "${MARIADB_PORT}:3306"
+    ports:
+      - "${MARIADB_PORT}:3306"
     environment:
       - MYSQL_DATABASE=${MARIADB_DATABASE}
       - MYSQL_USER=${MARIADB_USER}
