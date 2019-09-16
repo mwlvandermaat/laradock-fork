@@ -325,19 +325,19 @@ services:
     restart: always
   ### Only in development or local enviroment ####################################
   ### Certbot #########################################
-  # certbot:
-  #   build:
-  #     context: ./certbot
-  #   volumes:
-  #     - ./data/certbot/certs/:/var/certs
-  #     - ./certbot/letsencrypt/.well-known:/var/www/public_html/.well-known
-  #     - /etc/localtime:/etc/localtime:ro
-  #   environment:
-  #     - CN1=${HOST_SERVER1}
-  #     - EMAIL=${HOST_MAIL}
-  #     # - CN2=${HOST_SERVER2}
-  #   networks:
-  #     - frontend
+  certbot:
+    build:
+      context: ./certbot
+    volumes:
+      - ./data/certbot/certs/:/var/certs
+      - ./certbot/letsencrypt/.well-known:/var/www/public_html/.well-known
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - CN1=${HOST_SERVER1}
+      - EMAIL=${HOST_MAIL}
+      # - CN2=${HOST_SERVER2}
+    networks:
+      - frontend
   ### Portainer ################################################
   # portainer:
   #   build:
