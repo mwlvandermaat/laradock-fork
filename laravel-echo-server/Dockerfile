@@ -1,3 +1,5 @@
+ARG LARAVEL_ECHO_SERVER_CONFIG_FILE
+
 FROM node:alpine
 
 # Create app directory
@@ -15,7 +17,7 @@ RUN apk add --update \
 
 RUN npm install
 # Bundle app source
-COPY laravel-echo-server.json /usr/src/app/laravel-echo-server.json
+COPY ${LARAVEL_ECHO_SERVER_CONFIG_FILE} /usr/src/app/${LARAVEL_ECHO_SERVER_CONFIG_FILE}
 
 EXPOSE 3000
 CMD [ "npm", "start", "--force" ]

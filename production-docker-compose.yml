@@ -299,8 +299,10 @@ services:
   laravel-echo-server:
     build:
       context: ./laravel-echo-server
+    args:
+        - LARAVEL_ECHO_SERVER_CONFIG_FILE=${LARAVEL_ECHO_SERVER_CONFIG_FILE}
     volumes:
-      - ${LARAVEL_ECHO_SERVER_PATH}:/usr/src/app/laravel-echo-server.json:ro
+      - ${LARAVEL_ECHO_SERVER_PATH}:/usr/src/app/${LARAVEL_ECHO_SERVER_CONFIG_FILE}:ro
       - ./data/certbot/certs/:/var/certs
       - /etc/localtime:/etc/localtime:ro
     ports:

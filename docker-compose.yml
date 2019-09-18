@@ -342,6 +342,8 @@ services:
   laravel-echo-server:
     build:
       context: ./laravel-echo-server
+    args:
+      - LARAVEL_ECHO_SERVER_CONFIG_FILE=${LARAVEL_ECHO_SERVER_CONFIG_FILE}
     volumes:
       - ./laravel-echo-server/laravel-echo-server.json:/app/laravel-echo-server.json:ro
     ports:
