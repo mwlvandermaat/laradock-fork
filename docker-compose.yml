@@ -328,11 +328,9 @@ services:
     build:
       context: ./laravel-echo-server
     volumes:
-      - ${LARAVEL_ECHO_SERVER_PATH}:/usr/src/app/${LARAVEL_ECHO_SERVER_CONFIG_FILE}:ro
+      - ${LARAVEL_ECHO_SERVER_PATH}:/usr/src/app/laravel-echo-server.json:ro
       - ./data/certbot/certs/:/var/certs
       - /etc/localtime:/etc/localtime:ro
-    environment:
-      - LARAVEL_ECHO_SERVER_CONFIG_FILE=${ECHO_SERVER_CONFIG_FILE}
     ports:
       - "${LARAVEL_ECHO_SERVER_PORT}:6001"
     networks:
