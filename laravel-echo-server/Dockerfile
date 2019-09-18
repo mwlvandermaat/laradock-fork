@@ -1,6 +1,6 @@
 FROM node:alpine
 
-ARG LARAVEL_ECHO_SERVER_CONFIG_FILE
+ENV LARAVEL_ECHO_SERVER_CONFIG_FILE=${LARAVEL_ECHO_SERVER_CONFIG_FILE}
 
 # Create app directory
 RUN mkdir -p /usr/src/app
