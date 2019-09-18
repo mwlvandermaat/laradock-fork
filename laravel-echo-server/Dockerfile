@@ -6,7 +6,7 @@ ENV LARAVEL_ECHO_SERVER_CONFIG_FILE=${LARAVEL_ECHO_SERVER_CONFIG_FILE}
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 RUN echo 'we are running some # of cool things'
-RUN echo  ${LARAVEL_ECHO_SERVER_CONFIG_FILE}
+RUN echo ${LARAVEL_ECHO_SERVER_CONFIG_FILE}
 
 # Install app dependencies
 COPY package.json /usr/src/app/
