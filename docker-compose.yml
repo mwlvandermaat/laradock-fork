@@ -271,21 +271,6 @@ services:
         aliases:
           - laradock_mariadb
     # restart: always
-
-  ### Beanstalkd ###########################################
-  beanstalkd:
-    build: ./beanstalkd
-    ports:
-      - "${BEANSTALKD_HOST_PORT}:11300"
-    privileged: true
-    depends_on:
-      - php-fpm
-    networks:
-      - backend
-      - mshrapi_backend
-    external_links:
-      - ms-hrapi_ms-hrapi_1
-    # restart: always
     ### Docker-in-Docker ################################################
   docker-in-docker:
     image: docker:dind
@@ -297,21 +282,34 @@ services:
     networks:
       - backend
     # restart: always
-  #Only in test enviroment
-  # Certbot #########################################
+  ### Redis ################################################
+  ### Ports should be closed because request comes from backend ####################################
+  redis:
+    build: ./redis
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - ${DATA_PATH_HOST}/redis:/data
+      - /etc/localtime:/etc/localtime:ro
+    expose:
+      - "${REDIS_PORT}"
+    networks:
+      - backend
+    restart: always
+  ### Only in development or local enviroment ####################################
+  ### Certbot #########################################
   # certbot:
   #   build:
   #     context: ./certbot
   #   volumes:
   #     - ./data/certbot/certs/:/var/certs
   #     - ./certbot/letsencrypt/.well-known:/var/www/public_html/.well-known
+  #     - /etc/localtime:/etc/localtime:ro
   #   environment:
   #     - CN1=${HOST_SERVER1}
   #     - EMAIL=${HOST_MAIL}
   #     # - CN2=${HOST_SERVER2}
   #   networks:
   #     - frontend
-
   ### NetData ################################################
   # netdata:
   #   image: titpetric/netdata:latest
@@ -324,30 +322,20 @@ services:
   #   networks:
   #     - backend
   #   # restart: always
-  ### Beanstalkd Console ###################################
-  beanstalkd-console:
-    build: ./beanstalkd-console
-    ports:
-      - "${BEANSTALKD_CONSOLE_HOST_PORT}:2080"
-    environment:
-      - BEANSTALKD_CONSOLE_AUTH=${BEANSTALKD_CONSOLE_AUTH}
-      - BEANSTALKD_CONSOLE_AUTH_USERNAME=${BEANSTALKD_CONSOLE_AUTH_USERNAME}
-      - BEANSTALKD_CONSOLE_AUTH_PASSWORD=${BEANSTALKD_CONSOLE_AUTH_PASSWORD}
-    depends_on:
-      - beanstalkd
-    networks:
-      - backend
-
-  ### laravel-echo-server ####################################
+  ### Laravel-echo-server ####################################
+  ### Ports should be open because request comes from frontend ####################################
   laravel-echo-server:
     build:
       context: ./laravel-echo-server
       args:
-      - LARAVEL_ECHO_SERVER_CONFIG_FILE=${LARAVEL_ECHO_SERVER_CONFIG_FILE}
+        - LARAVEL_ECHO_SERVER_CONFIG_FILE=${LARAVEL_ECHO_SERVER_CONFIG_FILE}
     volumes:
-      - ./laravel-echo-server/laravel-echo-server.json:/app/laravel-echo-server.json:ro
+      - ${LARAVEL_ECHO_SERVER_PATH}:/usr/src/app/${LARAVEL_ECHO_SERVER_CONFIG_FILE}:ro
+      - ./data/certbot/certs/:/var/certs
+      - /etc/localtime:/etc/localtime:ro
     ports:
       - "${LARAVEL_ECHO_SERVER_PORT}:6001"
     networks:
       - frontend
       - backend
+    restart: always
