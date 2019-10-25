@@ -105,6 +105,7 @@ services:
     networks:
       - frontend
       - backend
+      - msuwv_backend
       - mshrapi_backend
     links:
       - docker-in-docker
@@ -218,6 +219,7 @@ services:
     networks:
       - backend
       - mshrapi_backend
+      - msuwv_backend
     external_links:
       - ms-hrapi_ms-hrapi_1
     # restart: always

@@ -109,6 +109,7 @@ services:
     networks:
       - frontend
       - backend
+      - msuwv_backend
       - mshrapi_backend
     links:
       - docker-in-docker
@@ -223,6 +224,7 @@ services:
       - "dockerhost:${DOCKER_HOST_IP}"
     networks:
       - backend
+      - msuwv_backend
       - mshrapi_backend
     external_links:
       - ms-hrapi_ms-hrapi_1
