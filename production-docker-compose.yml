@@ -337,7 +337,6 @@ services:
     environment:
       - CN1=${HOST_SERVER1}
       - EMAIL=${HOST_MAIL}
-      # - CN2=${HOST_SERVER2}
     networks:
       - frontend
   ### Portainer ################################################
